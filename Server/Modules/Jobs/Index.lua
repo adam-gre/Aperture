@@ -22,7 +22,15 @@ end
 
 function Aperture.jobExists(value)
     for k, v in pairs(RPExtraTeams) do
-      if v.name == value then return true end
+      if v.name == value then break return true end
     end
     return false
 end
+
+Aperture.addJob("Citizen", {
+  description = "You're rich"
+})
+
+Aperture.addJob("Hobo", {
+  description = "You're poor"
+})

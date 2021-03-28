@@ -1,5 +1,5 @@
-Package:Require("/Modules/Jobs/Index.lua")
 Package:Require("/Modules/CommandHandler/CommandHandler.lua")
+Package:Require("/Modules/Jobs/Index.lua")
 Package:Require("/Modules/Database/Connection.lua")
 Package:Require("/Modules/Economy/Player.lua")
 Package:Require("/Modules/Economy/Methods.lua")
@@ -37,28 +37,4 @@ end)
 Character:Subscribe("UnPossessed", function( char, ply )
     Aperture.SyncData(ply, char)
     char:Destroy()
-end)
-
-
-
--- Misc commands wich will be moved soon
-
-CommandHandler.registerServerCommand("/id", function(ply, args)
-    Server:SendChatMessage(ply, "Your ID is " .. ply:GetValue("id"))
-end)
-
-CommandHandler.registerServerCommand("/pos", function(ply, args)
-    local char = ply:GetControlledCharacter()
-    local x, y, z = char:GetLocation()
-
-    Server:SendChatMessage(ply, string.format( "X: %s Y: %s Z: %s", x, y ,z ))
-
-end)
-
-CommandHandler.registerServerCommand("/steamid", function(_, args)
-    if args[1] == nil then Package:Log("You must specify an id")return end
-    local lookupid = Aperture.idToSteamId(args[1])
-    if lookupid == -1 then Package:Log("Cannot fint this user in the database !")return end
-
-    Package:Log("The steamid of the id " .. args[1] .. " is " .. lookupid)
 end)

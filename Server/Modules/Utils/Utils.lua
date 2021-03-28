@@ -36,14 +36,13 @@ function Aperture.SyncData( ply, char )
     local vars =  {
         rpname = ply:GetValue("ApertureVar::rpname"),
         money = ply:GetValue("ApertureVar::money"),
-        position = Aperture.Vector3ToJson(char:GetLocation()),
+        -- position = Aperture.Vector3ToJson(char:GetLocation()),
     }
 
     local query = string.format( [[UPDATE playerdata
     SET rpname = '%s',
         money = %s,
-        position = '%s'
-    WHERE steamid = %s;]], vars.rpname, vars.money, vars.position, ply:GetAccountID() )
+    WHERE steamid = %s;]], vars.rpname, vars.money, ply:GetAccountID() )
 
     dbConnection:execute(query)
 end
