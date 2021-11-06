@@ -31,11 +31,11 @@ function Aperture.JsonToVector3( str )
     return Vector(pos.x, pos.y, pos.z)
 end
 
-function Aperture.SyncData( ply, char )
+function Aperture.SyncData( ply )
     local vars =  {
         rpname = ply:GetValue("ApertureVar::rpname"),
         money = ply:GetValue("ApertureVar::money"),
-        position = Aperture.Vector3ToJson(char:GetLocation()),
+        position = Aperture.Vector3ToJson(ply:GetControlledCharacter():GetLocation()),
     }
 
     local query = string.format( [[UPDATE playerdata
@@ -43,6 +43,6 @@ function Aperture.SyncData( ply, char )
         money = %s,
         position = '%s'
     WHERE steamid = '%s';]], vars.rpname, vars.money, vars.position, ply:GetSteamID() )
-    Package.Log(query)
+    -- Package.Log(query)
     dbConnection:execute(query)
 end

@@ -10,7 +10,7 @@ if not dbConnection or not dbConnection:ping() then
     end)
 
 else
-    local query = string.format( [[
+    local playerdata = string.format( [[
         CREATE TABLE IF NOT EXISTS `playerdata` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `rpname` varchar(50) NOT NULL DEFAULT '',
@@ -23,7 +23,19 @@ else
         UNIQUE KEY `rpname` (`rpname`)
     )
     ]] )
-    dbConnection:execute(query)
+    dbConnection:execute(playerdata)
+
+    local transactions = string.format( [[
+        CREATE TABLE IF NOT EXISTS `transactions` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+        `steamid` varchar(50) NOT NULL DEFAULT '0',
+        `amount` int(11) NOT NULL DEFAULT 0,
+        `reason` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+        PRIMARY KEY (`id`)
+    )
+    ]] )
+    dbConnection:execute(transactions)
     
     Package.Log("[ Aperture ] Database initialised")
 end
