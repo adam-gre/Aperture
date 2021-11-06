@@ -11,7 +11,7 @@ local function splitString(str)
     return strs
 end
 
-Server:Subscribe("Chat", function(txt, ply)
+Server.Subscribe("Chat", function(txt, ply)
     local split = splitString(txt)
     local cmd = table.remove(split, 1)
 
@@ -41,6 +41,6 @@ end
 
 CommandHandler.registerServerCommand("/jobs", function( ply, args )
     for i = 1, #RPExtraTeams do
-      Server:SendChatMessage(ply, RPExtraTeams[i].name)
+      Server.SendChatMessage(ply, RPExtraTeams[i].name)
     end
 end, false)
